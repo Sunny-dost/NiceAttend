@@ -12,7 +12,7 @@ const attemptsStore = new Map<string, AttemptRecord>();
 
 // Periodic cleanup every 10 minutes to prevent memory leaks
 if (typeof setInterval !== "undefined") {
-  setInterval(() => {
+  const timer = setInterval(() => {
     const now = Date.now();
     attemptsStore.forEach((record, key) => {
       if (now - record.firstAttemptAt > WINDOW_MS) {
@@ -20,6 +20,9 @@ if (typeof setInterval !== "undefined") {
       }
     });
   }, 10 * 60 * 1000);
+  if (typeof timer.unref === "function") {
+    timer.unref();
+  }
 }
 
 export interface RateLimitCheckResult {

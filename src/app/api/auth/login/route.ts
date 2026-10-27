@@ -4,6 +4,8 @@ import { verifyPassword } from "@/lib/auth/password";
 import { createSessionToken, setSessionCookie, clearSessionCookie } from "@/lib/auth/session";
 import { checkRateLimit, recordFailedAttempt, resetRateLimit } from "@/lib/auth/rate-limiter";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json().catch(() => ({}));
@@ -89,7 +91,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function DELETE() {
+export async function DELETE(request: NextRequest) {
   await clearSessionCookie();
   return NextResponse.json({ success: true, message: "Logged out" });
 }
