@@ -7,6 +7,8 @@ import {
   formatTimeInSchoolTz,
 } from "@/lib/attendance";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: NextRequest) {
   try {
     const adminUser = await getAuthenticatedAdmin();
